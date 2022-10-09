@@ -2,6 +2,9 @@ import './index.css';
 import React, { useState, useEffect } from 'react'
 
 function DropdownComponent(props) {
+
+    // Declaring all states
+
     const [label, setLabel] = useState("")
     const [data, setData] = useState([])
     const [isActive, setIsActive] = useState({})
@@ -10,6 +13,8 @@ function DropdownComponent(props) {
     const [selectedText, setSelectedText] = useState("")
     const [isMulti, setIsMulti] = useState(false)
     const [isOpen, setIsOpen] = useState(false)
+
+    // Updating states from props
 
     useEffect(() => {
         setData(props.data)
@@ -23,9 +28,9 @@ function DropdownComponent(props) {
         setIsMulti(props.isMulti)
     }, [props.isMulti])
 
+    // Updating default isActive of all dorpdown items to be false
 
     useEffect(() => {
-        console.log(data)
         let temp = {...isActive}
         for(let value of data){
             temp[value] = false
@@ -33,6 +38,7 @@ function DropdownComponent(props) {
         setIsActive(temp)
     }, [data])
 
+    // Updating the selected text shown
     
     useEffect(() => {
         setSelectedText("")
@@ -53,6 +59,8 @@ function DropdownComponent(props) {
         setSelectedText(selected.join(", "))
     }, [isActive])
 
+     // Updating dropdown if none option is selected
+
     useEffect(() => {
         if(selectNone){
             let temp = {...isActive}
@@ -64,6 +72,8 @@ function DropdownComponent(props) {
         setIsOpen(false)
     }, [selectNone])
 
+    // Updating dropdown when select all is selected or deselected
+
     function toggleAll(){
         let temp = {...isActive}
         for(let value of data){
@@ -72,6 +82,8 @@ function DropdownComponent(props) {
         setIsActive(temp)
         setSelectAll(!selectAll)
     }
+
+    // Updating dropdown when single select needs to update selected value
 
     function resetAndUpdate(item){
         let temp = {...isActive}
@@ -87,37 +99,57 @@ function DropdownComponent(props) {
     return (
         <div className="container">
             <div className="custom-field" onClick={() => setIsOpen(!isOpen)}>
+                
                 <h1><span>{label}</span></h1>
+                
                 <div className='dropdown-row row'>
                     <div className='col-9'>{selectedText}</div>
                     <div className="dropdown-arrow col-3"><img src= {isOpen ? "icons/caret-up-solid.svg" : "icons/caret-down-solid.svg"}></img></div>
                 </div>
+            
             </div>
+
             <div className="row" style={isOpen ? {"display": "block"} : {"display": "none"}}>
+                
                 {isMulti ? 
                     (<div className="dropdown-list">
+                        
+                        {/* Select All Option */}
+                        
                         <div className= {selectAll ? "dropdown-list-item isActive" : "dropdown-list-item"} onClick={() => toggleAll()}>    
                             <input className='m-2' type="checkbox" checked={selectAll}/>
                             Select All
                         </div>
+
+                        {/* Dropdown Options */}
+
                         {data.map(item => 
                         <div className= {isActive[item] ? "dropdown-list-item isActive" : "dropdown-list-item"} onClick={() => setIsActive({...isActive, [item]: !isActive[item]})}>    
                             <input className='m-2' type="checkbox" checked={isActive[item]}  value={item}/>
                             {item}
                         </div>
                     )}
-                    </div>) :
+                    </div>) 
+                    :
                     (<div className="dropdown-list">
+
+                        {/* Select None Option */}
+
                         <div className={selectNone ? "dropdown-list-item isActive" : "dropdown-list-item"} onClick={() => setSelectNone(true)}>    
                             None
                         </div>
+
+                        {/* Dropdown Options */}
+
                         {data.map(item => 
                         <div className={isActive[item] ? "dropdown-list-item isActive" : "dropdown-list-item"} onClick={() => resetAndUpdate(item)}>    
                             {item}
                         </div>
+
                     )}
                     </div>)
                 }
+
             </div>
         </div>
     );
