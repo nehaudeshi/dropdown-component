@@ -7,3 +7,6 @@
 5. For multi select, change `isMulti` to true.
 6. Keep your dropdown items in the `data` prop (as an array).
 
+
+Checkout the website : [Dropdown Example](https://hiveai-dropdown.netlify.app/)
+
