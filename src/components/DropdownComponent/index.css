@@ -1,0 +1,39 @@
+.custom-field {
+    margin-top: 32px;
+}
+
+.custom-field h1 {
+    font: 16px normal;
+}
+
+
+.dropdown-row{
+    border-radius: 10px 10px 0 0;
+    padding: 10px;
+    border: 1px solid black;
+    min-height: 50px;
+}
+
+.dropdown-arrow img{
+    width: 10px;
+    height: 100%;
+    float: right;
+}
+
+.dropdown-list{
+    margin-top: 2px;
+    border: 1px solid black;
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0;
+    box-shadow: #999999 6px 6px 4px 2px;
+}
+
+.dropdown-list-item{
+    cursor: pointer;
+    padding: 10px;
+}
+
+.dropdown-list-item:hover, .isActive{
+    background: #d3e5ff;
+}
